@@ -24,7 +24,7 @@ public class SqlsessionGetter {
             inputStream = Resources.getResourceAsStream(resource);
             SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
             return factory;
-        } catch (IOException e) {
+        } catch (IOException e) {      //
             e.printStackTrace();
         }
         return null;
