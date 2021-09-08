@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.dao.PStudentDao">
+    <resultMap id="PStudentMap" type="com.example.mybatis.model.PStudent">
+        <id column="id" property="stu_id"/>
+        <result column="name" property="stu_name"/>
+        <result column="age" property="stu_age"/>
+    </resultMap>
+    <select id="selectStudent" resultType="com.example.mybatis.model.PStudent">
+        select *
+        from student
+        where id = #{id}
+    </select>
+    <select id="selectStudents" resultType="com.example.mybatis.model.PStudent" resultMap="PStudentMap">
+        select name,age
+        from student
+    </select>
+
+
+</mapper>

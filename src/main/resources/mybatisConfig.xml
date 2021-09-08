@@ -6,6 +6,10 @@
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
+    <typeAliases>
+<!--        <typeAlias alias="Author" type="domain.blog.Author"/>-->
+
+    </typeAliases>
     <environments default="development1">
         <environment id="development1">
             <transactionManager type="JDBC"/>
@@ -19,5 +23,6 @@
     </environments>
     <mappers>
         <mapper resource="mappers/StudentDao.xml"/>
+        <mapper resource="mappers/PStudentDao.xml"/>
     </mappers>
 </configuration>

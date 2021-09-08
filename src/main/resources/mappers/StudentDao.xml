@@ -9,7 +9,17 @@
     <select id="selectStudents" resultType="com.example.mybatis.model.Student">
         select * from student
     </select>
-
+    <select id="selectStudentWhere" resultType="com.example.mybatis.model.Student">
+        select name,age from student
+        <where>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="age>0">
+               or age=#{age}
+            </if>
+        </where>
+    </select>
 
     <insert id="insertStudent" >
         insert into student(name,age) values (#{name},#{age})

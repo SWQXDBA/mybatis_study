@@ -7,6 +7,8 @@ import java.util.List;
 @Mapper
 public interface StudentDao {
     Student selectStudent(int id);
+    List<Student> selectStudentWhere(Student student);
     List<Student> selectStudents();
     int insertStudent(Student student);
+
 }
