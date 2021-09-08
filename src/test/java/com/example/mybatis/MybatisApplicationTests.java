@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 class MybatisApplicationTests {
 
@@ -56,6 +59,23 @@ class MybatisApplicationTests {
             student.setAge(15);
             student.setName("小黄");
             System.out.println(mapper.selectStudentWhere(student));
+
+
+        }
+    }
+
+    @Test
+    void contextLoads5() {
+        try (SqlSession sqlsession = sqlSessionFactory.openSession()) {
+
+            StudentDao mapper = sqlsession.getMapper(StudentDao.class);
+            List<Integer> list = new ArrayList<>();
+            list.add(1);
+            list.add(15);
+            // select name,age from student WHERE id in ( ? ,? )
+            //list不能为空 不然会where in
+            //导致sql语句出错
+            System.out.println(mapper.selectStudentIn(list));
 
 
         }

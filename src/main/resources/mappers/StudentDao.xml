@@ -3,11 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mybatis.dao.StudentDao">
+    <sql id="select*">
+        select * from student
+    </sql>
     <select id="selectStudent" resultType="com.example.mybatis.model.Student">
-        select * from student where id = #{id}
+        select *
+        from student
+        where id = #{id}
     </select>
     <select id="selectStudents" resultType="com.example.mybatis.model.Student">
-        select * from student
+        select *
+        from student
     </select>
     <select id="selectStudentWhere" resultType="com.example.mybatis.model.Student">
         select name,age from student
@@ -16,12 +22,23 @@
                 name = #{name}
             </if>
             <if test="age>0">
-               or age=#{age}
+                or age=#{age}
             </if>
         </where>
     </select>
 
-    <insert id="insertStudent" >
-        insert into student(name,age) values (#{name},#{age})
+    <select id="selectStudentIn" resultType="com.example.mybatis.model.Student">
+        <include refid="select*"/>
+        <where>
+            id in
+            <foreach collection="list" open="(" close=")" item="item" separator=",">
+                #{item}
+            </foreach>
+
+        </where>
+    </select>
+    <insert id="insertStudent">
+        insert into student(name, age)
+        values (#{name}, #{age})
     </insert>
 </mapper>
