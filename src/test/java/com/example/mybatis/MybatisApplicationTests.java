@@ -28,19 +28,22 @@ class MybatisApplicationTests {
         System.out.println(mapper.selectStudent(2));
 
     }
-//    @Test
-//
-//    void contextLoads2() {
-//        try (SqlSession sqlsession = sqlSessionFactory.openSession()){
-//            StudentDao mapper = sqlsession.getMapper(StudentDao.class);
-//            Student student = new Student();
-//            student.setAge(15);
-//            student.setName("小黄");
-//            System.out.println(mapper.insertStudent(student));
-//            sqlsession.commit();
-//
-//        }
-//    }
+    @Test
+
+    void contextLoads2() {
+        try (SqlSession sqlsession = sqlSessionFactory.openSession()){
+            StudentDao mapper = sqlsession.getMapper(StudentDao.class);
+            for (int i = 0; i < 100; i++) {
+                Student student = new Student();
+                student.setAge(i);
+                student.setName("name:"+i);
+                mapper.insertStudent(student);
+            }
+
+            sqlsession.commit();
+
+        }
+    }
 
     @Test
     void contextLoads3() {
@@ -76,7 +79,34 @@ class MybatisApplicationTests {
             //list不能为空 不然会where in
             //导致sql语句出错
             System.out.println(mapper.selectStudentIn(list));
+        }
+    }
 
+    @Test
+    void contextLoadCache() {
+        try (SqlSession sqlsession = sqlSessionFactory.openSession();
+        SqlSession sqlsession2 = sqlSessionFactory.openSession()
+        ) {
+
+            StudentDao mapper = sqlsession.getMapper(StudentDao.class);
+            StudentDao mapper2 = sqlsession2.getMapper(StudentDao.class);
+
+            Student student = mapper.selectStudent(1);
+            sqlsession.close();//会话关闭后数据才会写入二级缓存
+            Student student2 = mapper2.selectStudent(1);
+            System.out.println(student2==student);
+
+        }
+    }
+
+    @Test
+    void contextLoadCacheInsert1() {
+        try (SqlSession sqlsession = sqlSessionFactory.openSession();
+             SqlSession sqlsession2 = sqlSessionFactory.openSession()
+        ) {
+
+            StudentDao mapper = sqlsession.getMapper(StudentDao.class);
+            System.out.println(mapper.countStudent("-1"));
 
         }
     }

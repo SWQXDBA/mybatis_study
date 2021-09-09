@@ -5,11 +5,12 @@
 <configuration>
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="cacheEnabled" value="true"/>
     </settings>
-    <typeAliases>
-<!--        <typeAlias alias="Author" type="domain.blog.Author"/>-->
+<!--    <typeAliases>-->
+<!--&lt;!&ndash;        <typeAlias alias="Author" type="domain.blog.Author"/>&ndash;&gt;-->
 
-    </typeAliases>
+<!--    </typeAliases>-->
     <environments default="development1">
         <environment id="development1">
             <transactionManager type="JDBC"/>
